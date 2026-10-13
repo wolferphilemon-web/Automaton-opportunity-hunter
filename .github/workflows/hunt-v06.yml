@@ -1,0 +1,32 @@
+
+name: AUTOMATON v0.6 Opportunity Hunt
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out AUTOMATON
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run v0.6 opportunity hunter
+        run: python automaton_v0_6.py
+
+      - name: Save v0.6 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: automaton-v06-opportunity-report
+          path: output/
+          retention-days: 7
+          
